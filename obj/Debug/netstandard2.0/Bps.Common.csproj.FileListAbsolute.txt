@@ -1,9 +1,0 @@
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bin\netstandard2.0\Bps.Common.deps.json
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bin\netstandard2.0\Bps.Common.dll
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bin\netstandard2.0\Bps.Common.pdb
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard2.0\Bps.Common.csproj.CoreCompileInputs.cache
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard2.0\Bps.Common.AssemblyInfoInputs.cache
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard2.0\Bps.Common.AssemblyInfo.cs
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard2.0\Bps.Common.dll
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard2.0\Bps.Common.pdb
-Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard2.0\Bps.Common.csprojAssemblyReference.cache

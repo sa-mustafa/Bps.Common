@@ -1,0 +1,4 @@
+Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard1.6\Bps.Common.csprojAssemblyReference.cache
+Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard1.6\Bps.Common.csproj.CoreCompileInputs.cache
+Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard1.6\Bps.Common.AssemblyInfoInputs.cache
+Z:\Technology\SAMTech Vision\uCloud\dotNetCore\Bps.Common\obj\Debug\netstandard1.6\Bps.Common.AssemblyInfo.cs

@@ -4,7 +4,7 @@ This repo contains the most common utility needed for most of the projects I did
 
 - Exception handling & logging mostly with [NLog](https://github.com/NLog/NLog).
 - Handling single instance running for services
-- Flexible threading mechanism with Processor & Processors
+- Flexible threading mechanism with [Processor](./Threading/Processor.cs) & [Processors](./Threading/Processors.cs)
 - and object pooling to avoid memory fragmentation.
 
 This project is battle tested initially in many projects: MAFIS and its variants, DBScan-v1 & DBScan-v2. These projects performed biometric enrollment & identification on facial images.

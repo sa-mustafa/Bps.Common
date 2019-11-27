@@ -9,7 +9,7 @@ This repo contains the most common utility needed for most of the projects I did
 
 This project is battle tested initially in many projects: MAFIS and its variants, DBScan-v1 & DBScan-v2. These projects performed biometric enrollment & identification on facial images.
 
-The threading system in this project is its strongest point and provides you with a system way better than .Net [Threading](https://docs.microsoft.com/en-us/dotnet/standard/threading/using-threads-and-threading), [ThreadPool](https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadpool?view=netframework-4.8), [Task Parallel Library](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl) (TPL) mechanisms.
+The threading system in this project is its strongest point and provides you with a system way better than .Net [Threading](https://docs.microsoft.com/en-us/dotnet/standard/threading/using-threads-and-threading), [ThreadPool](https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadpool?view=netframework-4.8), [Task Parallel Library](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl) (TPL) mechanisms. The threading pattern introduced, is used to create literally hundreds of simultaneous threads on [NUMA](https://en.wikipedia.org/wiki/Non-uniform_memory_access) systems.
 
 To create a single processing thread (optionally running on all cores with AboveNormal priority), use the following code snippet:
 
@@ -63,7 +63,7 @@ bool DatabaseManagerThreadProc()
 }
 ```
 
-To create a group of processing threads (preferably running on specified core with AboveNormal priority), use the following code snippet:
+To create a group of processing threads (optionally running on specified core with BelowNormal priority), use the following code snippet:
 
 ```C#
 // Create a database manager thread. Naming the thread helps ease the debugging/logging tasks. 
@@ -115,3 +115,4 @@ bool EnrollProcessorsThreadProc(int index)
     #endregion
 }
 ```
+Note that I/O-bound threads are better off running on all cores with higher priority; whereas CPU-bound threads should be running with lower priority preferably on specific thread core. For GUI threads, use the highest priority for responsiveness. If you need to customize the actions for a specific thread inside a group, use the index parameter.

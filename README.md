@@ -14,9 +14,9 @@ The threading system in this project is its strongest point and provides you wit
 To create a single processing thread (optionally running on all cores with AboveNormal priority), use the following code snippet:
 
 ```C#
-	// Create a database manager thread. Naming the thread helps ease the debugging/logging tasks. 
-	dbManager = new Processor("Database Manager");
-  dbManager.Run(0, System.Threading.ThreadPriority.AboveNormal, (SingleProcessorThreadStart)DatabaseManagerThreadProc);
+// Create a database manager thread. Naming the thread helps ease the debugging/logging tasks. 
+dbManager = new Processor("Database Manager");
+dbManager.Run(0, System.Threading.ThreadPriority.AboveNormal, (SingleProcessorThreadStart)DatabaseManagerThreadProc);
 ```
 
 The Run() function sets the thread running. To pause or stop the thread, use the Pause()/Stop() functions. To completely stop a thread, use the Remove() function.
@@ -66,9 +66,9 @@ bool DatabaseManagerThreadProc()
 To create a group of processing threads (preferably running on specified core with AboveNormal priority), use the following code snippet:
 
 ```C#
-	// Create a database manager thread. Naming the thread helps ease the debugging/logging tasks. 
-	enrollment = new Processor("Enrollment Processors");
-  enrollment.Add(1, System.Threading.ThreadPriority.BelowNormal, EnrollProcessorsThreadProc);
+// Create a database manager thread. Naming the thread helps ease the debugging/logging tasks. 
+enrollment = new Processor("Enrollment Processors");
+enrollment.Add(1, System.Threading.ThreadPriority.BelowNormal, EnrollProcessorsThreadProc);
 ```
 
 The Add() function creates and sets one thread running. To pause or resume the thread group, use the PauseAll()/ResumeAll() functions. To completely stop the thread group, use the RemoveAll() function.

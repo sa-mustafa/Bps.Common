@@ -1,6 +1,8 @@
 ﻿namespace Bps.Common
 {
     using System;
+    using System.IO;
+    using System.Runtime.Serialization.Formatters.Binary;
 
     public static class Utility
     {
@@ -48,6 +50,31 @@
             {
                 Exceptions.Handle(ex);
             }
+        }
+
+        /// <summary>
+        /// Serializes an object to the specified stream.
+        /// </summary>
+        /// <typeparam name="T">object type</typeparam>
+        /// <typeparam name="output">Specify the output stream</typeparam>
+        /// <param name="value">The object value.</param>
+        public static void Serialize<T>(Stream output, T value)
+        {
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(output, value);
+        }
+
+        /// <summary>
+        /// De-serializes an string using the specified formatter.
+        /// </summary>
+        /// <typeparam name="T">object type</typeparam>
+        /// <param name="input">The serialized input stream.</param>
+        /// <returns>the de-serialized object</returns>
+        public static T Deserialize<T>(Stream input) where T: class
+        {
+            var formatter = new BinaryFormatter();
+            // De-serialize to an object of type T
+            return formatter.Deserialize(input) as T;
         }
     }
 

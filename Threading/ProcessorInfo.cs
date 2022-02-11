@@ -8,9 +8,8 @@ namespace BPS.Common.Threading
     /// </summary>
     public class ProcessorInfo : IDisposable
     {
-
         #region Constructor & Finalizer
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessorInfo"/> class.
         /// </summary>
@@ -23,12 +22,15 @@ namespace BPS.Common.Threading
             Events = new ThreadEvents();
         }
 
-        /// <summary>
-        /// Finalizes an instance of the <see cref="ProcessorInfo"/> class.
-        /// </summary>
-        ~ProcessorInfo()
+        #region IDisposable Support
+
+        protected virtual void Dispose(bool disposing)
         {
-            Dispose();
+            if (Events != null)
+            {
+                Events.Dispose();
+                Events = null;
+            }
         }
 
         /// <summary>
@@ -36,13 +38,11 @@ namespace BPS.Common.Threading
         /// </summary>
         public void Dispose()
         {
+            Dispose(true);
             GC.SuppressFinalize(this);
-            if (Events != null)
-            {
-                Events.Dispose();
-                Events = null;
-            }
         }
+
+        #endregion
 
         #endregion
 

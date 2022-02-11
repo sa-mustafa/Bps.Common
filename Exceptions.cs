@@ -78,31 +78,33 @@
         /// <param name="level">The log level.</param>
         public static void Log(string text, Levels level = Levels.Trace)
         {
-            if (!logger.IsTraceEnabled)
-                return;
-
             try
             {
                 switch (level)
                 {
+                    case Levels.Trace:
+                        if (logger.IsTraceEnabled)
+                            logger.Trace(text);
+                        break;
                     case Levels.Debug:
-                        logger.Debug(text);
+                        if (logger.IsDebugEnabled)
+                            logger.Debug(text);
                         break;
                     case Levels.Info:
-                        logger.Info(text);
+                        if (logger.IsInfoEnabled)
+                            logger.Info(text);
                         break;
                     case Levels.Warning:
-                        logger.Warn(text);
+                        if (logger.IsWarnEnabled)
+                            logger.Warn(text);
                         break;
                     case Levels.Error:
-                        logger.Error(text);
+                        if (logger.IsErrorEnabled)
+                            logger.Error(text);
                         break;
                     case Levels.Fatal:
-                        logger.Fatal(text);
-                        break;
-                    default:
-                    //case Levels.Trace:
-                        logger.Trace(text);
+                        if (logger.IsFatalEnabled)
+                            logger.Fatal(text);
                         break;
                 }
             }
@@ -160,6 +162,14 @@
         {
             NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(config);
             logger = NLog.LogManager.GetCurrentClassLogger();
+            SetupUnhandled();
+        }
+
+        /// <summary>
+        /// Setups the un-handled exception handlers.
+        /// </summary>
+        public static void SetupUnhandled()
+        {
             AppDomain.CurrentDomain.UnhandledException += DomainUnhandledException;
             AppDomain.CurrentDomain.FirstChanceException += DomainFirstChanceException;
         }

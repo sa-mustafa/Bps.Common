@@ -12,7 +12,6 @@
     /// </summary>
     public class Processor : IDisposable
     {
-
         #region Fields
 
         private bool disposed;
@@ -82,10 +81,7 @@
         /// <summary>
         /// Gets the managed thread identifier.
         /// </summary>
-        public int ManagedThreadId
-        {
-            get { return info.Thread.ManagedThreadId; }
-        }
+        public int ManagedThreadId => info.Thread.ManagedThreadId;
 
         #endregion
 
@@ -96,20 +92,14 @@
         /// </summary>
         /// <param name="timeout">The timeout to wait.</param>
         /// <returns>True if the processor could resume; false otherwise.</returns>
-        public bool CouldResume(TimeSpan? timeout)
-        {
-            return info.Events.CouldResume.WaitOne(timeout ?? Timeout.InfiniteTimeSpan);
-        }
+        public bool CouldResume(TimeSpan? timeout) => info.Events.CouldResume.WaitOne(timeout ?? Timeout.InfiniteTimeSpan);
 
         /// <summary>
         /// Checks whether the processor should stop.
         /// </summary>
         /// <param name="timeout">The timeout to wait.</param>
         /// <returns>True if the processor should stop; false otherwise.</returns>
-        public bool ShouldStop(TimeSpan? timeout)
-        {
-            return info.Events.ShouldStop.WaitOne(timeout ?? Timeout.InfiniteTimeSpan);
-        }
+        public bool ShouldStop(TimeSpan? timeout) => info.Events.ShouldStop.WaitOne(timeout ?? Timeout.InfiniteTimeSpan);
 
         /// <summary>
         /// Finishes the processor thread gracefully.
@@ -125,10 +115,7 @@
         /// <summary>
         /// Pauses the processor thread.
         /// </summary>
-        public void Pause()
-        {
-            info.Events.CouldResume.Reset();
-        }
+        public void Pause() => info.Events.CouldResume.Reset();
 
         /// <summary>
         /// Removes the processor thread.
@@ -159,10 +146,7 @@
         /// <summary>
         /// Resumes the processor thread.
         /// </summary>
-        public void Resume()
-        {
-            info.Events.CouldResume.Set();
-        }
+        public void Resume() => info.Events.CouldResume.Set();
 
         /// <summary>
         /// Runs the processor thread.
@@ -213,10 +197,7 @@
         /// <summary>
         /// Stops the processor thread.
         /// </summary>
-        public void Stop()
-        {
-            info.Events.ShouldStop.Set();
-        }
+        public void Stop() => info.Events.ShouldStop.Set();
 
         /// <summary>
         /// Waits for a specified time while checking for processor signals.
@@ -280,10 +261,10 @@
                 Thread.CurrentThread.Priority = pi.Priority;
 
                 // Run the single thread procedure.
-                if (pi.ThreadProc is SingleProcessorThreadStart)
-                    ((SingleProcessorThreadStart)pi.ThreadProc)();
-                else if (pi.ThreadProc is MultipleProcessorThreadStart)
-                    ((MultipleProcessorThreadStart)pi.ThreadProc)(pi.Index);
+                if (pi.ThreadProc is SingleProcessorThreadStart start1)
+                    start1();
+                else if (pi.ThreadProc is MultipleProcessorThreadStart start2)
+                    start2(pi.Index);
             }
             catch (Exception ex)
             {

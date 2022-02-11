@@ -13,8 +13,8 @@
         #region Fields
 
         private bool disposed;
+        private readonly List<Processor> bunch;
         private readonly ThreadLocal<Processor> current;
-        private readonly List<Processor> processorList;
 
         #endregion
 
@@ -28,7 +28,7 @@
         {
             Name = name;
             current = new ThreadLocal<Processor>(Factory);
-            processorList = new List<Processor>();
+            bunch = new List<Processor>();
         }
 
         #region IDisposable Support
@@ -39,8 +39,8 @@
 
             if (disposing)
             {
-                processorList.ForEach(proc => proc.Dispose());
-                processorList.Clear();
+                bunch.ForEach(proc => proc.Dispose());
+                bunch.Clear();
             }
             disposed = true;
         }
@@ -63,13 +63,7 @@
         /// <summary>
         /// Gets the current processor in the context of running thread.
         /// </summary>
-        public Processor Current
-        {
-            get
-            {
-                return current.Value;
-            }
-        }
+        public Processor Current => current.Value;
 
         /// <summary>
         /// Gets the processor class name.
@@ -93,11 +87,11 @@
             Processor processor = null;
             try
             {
-                processor = new Processor(Name, processorList.Count);
+                processor = new Processor(Name, bunch.Count);
                 processor.Run(coreIndex, priority, threadProc, startPaused);
-                lock (processorList)
+                lock (bunch)
                 {
-                    processorList.Add(processor);
+                    bunch.Add(processor);
                 }
             }
             catch (Exception)
@@ -121,11 +115,11 @@
             Processor processor = null;
             try
             {
-                processor = new Processor(Name, processorList.Count);
+                processor = new Processor(Name, bunch.Count);
                 processor.Run(afinityMask, priority, threadProc, startPaused);
                 lock (processor)
                 {
-                    processorList.Add(processor);
+                    bunch.Add(processor);
                 }
             }
             catch (Exception)
@@ -141,7 +135,7 @@
         /// </summary>
         public void PauseAll()
         {
-            processorList.ForEach(proc => proc.Pause());
+            bunch.ForEach(proc => proc.Pause());
         }
 
         /// <summary>
@@ -149,7 +143,7 @@
         /// </summary>
         public void ResumeAll()
         {
-            processorList.ForEach(proc => proc.Resume());
+            bunch.ForEach(proc => proc.Resume());
         }
 
         /// <summary>
@@ -158,16 +152,16 @@
         /// <param name="timeout">The timeout to wait before resorting to abort.</param>
         public void RemoveAll(TimeSpan? timeout)
         {
-            lock (processorList)
+            lock (bunch)
             {
-                processorList.ForEach(proc => proc.Remove(timeout));
-                processorList.Clear();
+                bunch.ForEach(proc => proc.Remove(timeout));
+                bunch.Clear();
             }
         }
 
         private Processor Factory()
         {
-            return processorList.Find(proc => proc.ManagedThreadId == Thread.CurrentThread.ManagedThreadId);
+            return bunch.Find(proc => proc.ManagedThreadId == Thread.CurrentThread.ManagedThreadId);
         }
 
         #endregion

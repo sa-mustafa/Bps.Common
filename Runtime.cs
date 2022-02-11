@@ -7,7 +7,6 @@
 
     public static class Runtime
     {
-
         #region Fields
 
         private static Mutex appMutex;
@@ -17,7 +16,16 @@
         #region Methods
 
         /// <summary>
-        /// Gets the currently running application path.
+        /// Gets the currently running application's directory.
+        /// </summary>
+        /// <returns>the running application path.</returns>
+        public static string GetAppDir()
+        {
+            return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        }
+
+        /// <summary>
+        /// Gets the currently running application's path.
         /// </summary>
         /// <returns>the running application path.</returns>
         public static string GetAppPath()
@@ -85,8 +93,7 @@
                 if (appMutex != null)
                     return true;
 
-                bool justCreated = false;
-                appMutex = new Mutex(true, uniqueName, out justCreated);
+                appMutex = new Mutex(true, uniqueName, out bool justCreated);
                 if (!justCreated)
                 {
                     appMutex.Dispose();

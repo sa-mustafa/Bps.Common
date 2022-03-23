@@ -8,7 +8,7 @@
  * 
  */
 
-namespace BPS.Common.Pooling
+namespace Bps.Common.Pooling
 {
     using System;
     using System.Collections.Concurrent;

@@ -1,4 +1,4 @@
-﻿namespace BPS.Common.Threading
+﻿namespace Bps.Common.Threading
 {
     using System;
     using System.Collections.Generic;

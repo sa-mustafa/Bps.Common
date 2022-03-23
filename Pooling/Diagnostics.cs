@@ -1,4 +1,4 @@
-﻿namespace BPS.Common.Pooling
+﻿namespace Bps.Common.Pooling
 {
     public class Diagnostics
     {

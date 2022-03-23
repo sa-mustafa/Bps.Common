@@ -1,4 +1,6 @@
-﻿namespace Bps.Common
+﻿using System;
+
+namespace Bps.Common
 {
     public static class Extensions
     {
@@ -53,6 +55,29 @@
                 return (len, StringKinds.Alphanumeric);
             else
                 return (len, StringKinds.Bytes);
+        }
+
+        /// <summary>
+        /// Get instance of an attribute on a type.
+        /// </summary>
+        /// <typeparam name="AttribType">Specify the attribute type.</typeparam>
+        /// <param name="TypeName">Specify the type name.</param>
+        /// <returns>an instance of the attribute.</returns>
+        public static AttribType GetAttribute<AttribType>(Type TypeName) where AttribType : Attribute
+        {
+            return Attribute.GetCustomAttribute(TypeName, typeof(AttribType)) as AttribType;
+        }
+
+        /// <summary>
+        /// Get instance of an attribute on a field of a type.
+        /// </summary>
+        /// <typeparam name="AttribType">Specify the attribute type.</typeparam>
+        /// <param name="TypeName">Specify the type name.</param>
+        /// <param name="FieldName">Specify the field name.</param>
+        /// <returns>an instance of the attribute.</returns>
+        public static AttribType GetAttribute<AttribType>(Type TypeName, string FieldName) where AttribType : Attribute
+        {
+            return Attribute.GetCustomAttribute(TypeName.GetField(FieldName), typeof(AttribType)) as AttribType;
         }
     }
 }

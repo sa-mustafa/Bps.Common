@@ -57,6 +57,13 @@ namespace Bps.Common
                 return (len, StringKinds.Bytes);
         }
 
+        public enum MemberTypes
+        {
+            Event,
+            Field,
+            Property,
+        }
+
         /// <summary>
         /// Get instance of an attribute on a type.
         /// </summary>
@@ -69,15 +76,25 @@ namespace Bps.Common
         }
 
         /// <summary>
-        /// Get instance of an attribute on a field of a type.
+        /// Get instance of an attribute on a member of a type.
         /// </summary>
         /// <typeparam name="AttribType">Specify the attribute type.</typeparam>
         /// <param name="TypeName">Specify the type name.</param>
-        /// <param name="FieldName">Specify the field name.</param>
+        /// <param name="MemberName">Specify the member name.</param>
+        /// <param name="MemberType">Specify the member type.</param>
         /// <returns>an instance of the attribute.</returns>
-        public static AttribType GetAttribute<AttribType>(Type TypeName, string FieldName) where AttribType : Attribute
+        public static AttribType GetAttribute<AttribType>(Type TypeName, string MemberName, MemberTypes MemberType = MemberTypes.Property) where AttribType : Attribute
         {
-            return Attribute.GetCustomAttribute(TypeName.GetField(FieldName), typeof(AttribType)) as AttribType;
+            switch (MemberType)
+            {
+                case MemberTypes.Event:
+                    return Attribute.GetCustomAttribute(TypeName.GetEvent(MemberName), typeof(AttribType)) as AttribType;
+                case MemberTypes.Field:
+                    return Attribute.GetCustomAttribute(TypeName.GetField(MemberName), typeof(AttribType)) as AttribType;
+                case MemberTypes.Property:
+                default:
+                    return Attribute.GetCustomAttribute(TypeName.GetProperty(MemberName), typeof(AttribType)) as AttribType;
+            }
         }
     }
 }

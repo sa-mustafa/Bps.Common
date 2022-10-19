@@ -1,4 +1,4 @@
-﻿namespace Bps.Common.Pooling
+namespace Bps.Common.Pooling
 {
     using System.Threading;
 

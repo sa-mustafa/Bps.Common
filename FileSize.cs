@@ -1,4 +1,4 @@
-﻿namespace Bps.Common
+namespace Bps.Common
 {
     using System.Collections.Generic;
 

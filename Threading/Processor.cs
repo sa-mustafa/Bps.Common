@@ -1,4 +1,4 @@
-﻿namespace Bps.Common.Threading
+namespace Bps.Common.Threading
 {
     using Bps.Common;
     using System;

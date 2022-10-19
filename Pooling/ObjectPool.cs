@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * Generic Object Pool Implementation
  *  
  * Implemented by Ofir Makmal, 28/1/2013

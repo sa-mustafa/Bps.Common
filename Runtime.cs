@@ -54,6 +54,17 @@ namespace Bps.Common
         }
 
         /// <summary>
+        /// Retrieves a custom attribute of the specified type from the containing assembly.
+        /// </summary>
+        /// <typeparam name="T">The type of attribute to search for.</typeparam>
+        /// <param name="type">Specify the intended type.</param>
+        /// <returns>A custom attribute that matches attributeType, or null if no such attribute is found.</returns>
+        public static T GetAssemblyAttributeFromType<T>(Type type) where T : Attribute
+        {
+            return type.GetTypeInfo().Assembly.GetCustomAttribute<T>();
+        }
+
+        /// <summary>
         /// Ensures the application is large-address-aware; i.e. can use more than 2GB memory.
         /// </summary>
         /// <param name="exePath">The executable path.</param>
